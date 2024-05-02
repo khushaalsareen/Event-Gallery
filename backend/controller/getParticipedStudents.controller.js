@@ -11,11 +11,11 @@ const getParticipateeListController = async (req, res) => {
     }
     const list = fetchEvent.participateeList;
     const userList = await userModal.find({ _id: { $in: list } });
-    // const response = await Promise.all(list.map(async (id) =>
-    //     await userModal.findOne(_id = id)
-    // ));    
+    const response = await Promise.all(list.map(async (id) =>
+        await userModal.findOne(_id = id)
+    ));    
     
-    // console.log(response);
+    console.log(response);
     res.status(200).json({
         userList : userList,
         // response: list, 

@@ -23,19 +23,6 @@ app.use('/api/update/', resetPasswordRouter)
 app.use('/api/dashboard/', Dashboard)
 app.use('/api/payment/' ,Order)
 
-// cron.schedule('0 0 * * *', async () => {
-//     try {
-//       const currentDate = new Date();
-//       await EventModel.updateMany(
-//         { endDate: { $lt: currentDate }, eventStatus: { $ne: 'completed' } },
-//         { $set: { eventStatus: 'completed' } }
-//       );
-//       console.log('Updated event statuses.');
-//     } catch (error) {
-//       console.error('Error updating event statuses:', error);
-//     }
-//   })
-
 const port = process.env.PORT || 8000
 app.listen(port, (req,res) => {
     console.log('Server Chalu Ho gya hai ',port)

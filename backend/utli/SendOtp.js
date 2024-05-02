@@ -6,13 +6,13 @@ const SendOtp =async (email, otp) => {
         port: 465,
         secure: true, // Use `true` for port 465, `false` for all other ports
         auth: {
-          user: "anishchautala2000@gmail.com",
+          user: "khushaalsareen@gmail.com",
           pass: process.env.PASS,
         },
       });
     
       const receiver = {
-        from: "anishchautala2000@gmail.com",
+        from: "khushaalsareen@gmail.com",
         to: `${email}`,
         subject: "OTP",
         text: `This is your OTP for verification ${otp}`

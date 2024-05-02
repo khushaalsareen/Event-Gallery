@@ -17,6 +17,7 @@ import AdminUpcomingEvent from "./components/admin/AdminUpcomingEvent";
 import OtpPage from "./components/OtpPage";
 import ResetPassword from "./components/ResetPassword";
 import OtpPageSignUp from "./components/OtpPageSignUp";
+import UpdateEvent from "./components/admin/UpdateEvent";
 
 function App() {
   const userLogged = localStorage.getItem('userLogged')
@@ -52,6 +53,7 @@ function App() {
         <Route path="/admin/upcomingEvent" exact element={<AdminUpcomingEvent />} />
         <Route path="/admin/completedEvent" exact element={<CompletedEvents />} />
         <Route path="/admin/events/create" exact element={<CreateEvent />} />
+        <Route path="/admin/events/update/:name" exact element={<UpdateEvent />} />
 
 
 

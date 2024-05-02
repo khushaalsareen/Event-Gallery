@@ -40,8 +40,7 @@ const EventSchema = mongoose.Schema({
         required: true
     },
     participateeList:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "userModal",
+        type: Number,       
     }],
     eventImage: {
         type: String,

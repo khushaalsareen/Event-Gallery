@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 // import EventJSON from '../utils/EventJSON'
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Alerts from "./Alerts";
 import LoadingScreen from "./LoadingScreen";
 import { ToastContainer, toast } from 'react-toastify';
@@ -26,8 +26,6 @@ function EventsDetail() {
 
   const { id } = useParams()
 
-  // const {navigate} = useNavigate();
-
   const navigate = useNavigate();
   const [Events, setEvents] = useState([])
   const [postData, setPostData] = useState('')
@@ -37,6 +35,7 @@ function EventsDetail() {
     statusCode: '',
     msg: ''
   })
+  const [participateeList, setParticipateeList] = useState([]);
 
   const userId = localStorage.getItem('id')
   const adminLogin = localStorage.getItem('adminLogged')
@@ -167,19 +166,17 @@ function EventsDetail() {
       })
 
   }, []);
+
+ 
   useEffect(() => {
-    // console.log(id);
-
-
-    // console.log(Events);
     const EventDeatils = Events.find((ele) => {
-      // console.log(ele);
       return ele.eventName.trimEnd() === id.trimEnd()
     })
-    // console.log(EventDeatils);
+    console.log(EventDeatils)
     setEventDetails(EventDeatils)
-    setPostData(EventDeatils?._id)
+    setPostData(EventDeatils?._id)  
   }, [Events, id])
+  
   return (
     <div className="flex h-full lg:flex-row flex-col  ">
       <Navbar title="event" />
@@ -258,6 +255,24 @@ function EventsDetail() {
                 </p>
               </details>
 
+
+            { adminLogin==='true' && <details className="group pt-5">
+                <summary className="flex ring-2 ring-gray-300 rounded-xl p-2 mr-6 justify-between items-center font-medium cursor-pointer list-none">
+                  <span className="text-l"> Participated Candidates</span>
+                  <span className="transition group-open:rotate-180">
+                    <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
+                    </svg>
+                  </span>
+                </summary>
+                <p className="text-neutral-600 mt-3 group-open:animate-fadeIn">
+                  {
+                    eventDetails?.participateeList?.map(participant=>(
+                      <p className="inline">{participant}  </p>
+                    ))
+                  }
+                </p>
+              </details>}
+
               {adminLogin === 'true' ?
                 <div className="flex mt-8">
                   <button onClick={handleDelete}
@@ -279,6 +294,17 @@ function EventsDetail() {
                     {alertMsg.statusCode === 200 ? 'Registered' : ('Register '.concat(eventDetails?.eventFee ? '₹ ' + eventDetails?.eventFee : ''))}
                   </button>}
                 </div>}
+
+                {adminLogin==='true' && 
+                  <div className="flex mt-2">
+                
+                  <button className=" block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-900 focus:bg-indigo-900 text-black hover:text-white focus:text-white rounded-lg px-2 py-2 font-semibold " type="button" data-ripple-light="true" onClick={()=>{
+                    navigate(`/admin/events/update/${id}`);
+                  }}>
+                  Update
+                </button>             
+                </div>
+                }
             </div>
             <div className="relative hidden lg:block lg:w-3/5 ">
               <img className="rounded-xl "

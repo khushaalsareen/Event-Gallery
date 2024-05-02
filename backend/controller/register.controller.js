@@ -24,9 +24,10 @@ const RegisterEventController = async (req, res) => {
 
             const UpdatedParticipatedEventInEventModal = await EventModel.updateOne({ _id: req.body.eventId}, { $inc: { participatedStudents: 1 } })
             
-            const updatedParticipateeList = await EventModel.updateOne({_id: req.body.eventId}, { $push: {participateeList: fetchUser._id}});
+            const updatedParticipateeList = await EventModel.updateOne({_id: req.body.eventId}, { $push: {participateeList: userId}});
 
             const reFetchedUserInfo = await userModal.findById(fetchUser._id)
+            console.log(reFetchedUserInfo)
             res.json({
                 "data": reFetchedUserInfo,
                 'message': "Registered SuccessFully",
